@@ -1,6 +1,7 @@
 package info.jbcs.minecraft.vending.block;
 
 import java.util.List;
+import java.util.Objects;
 
 import info.jbcs.minecraft.vending.General;
 import info.jbcs.minecraft.vending.tileentity.TileEntityVendingMachine;
@@ -63,6 +64,12 @@ public class BlockVendingMachine extends BlockContainer {
 
 		boolean fits = true;
 
+		if (bought != null && offered != null) {
+			if (offered.stackSize < bought.stackSize) {
+				world.playSoundEffect(i, j, k, "vending:forbidden", 1.0f, 1.0f);
+				return;
+			}
+		}
 		if (bought == null) {
 			offered = null;
 			if (soldItems == null)
